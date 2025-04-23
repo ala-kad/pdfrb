@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "Pdf Report Gen" %></title>
+    <title><%= @report_data[:title] || "Threat Intelligence Report" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta charset="UTF-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -22,7 +23,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body style="font-family: 'Orbitron', Arial, sans-serif; margin: 0; padding: 0; color: #ffffff;">
     <%= yield %>
   </body>
 </html>
