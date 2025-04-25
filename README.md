@@ -32,7 +32,7 @@ gem "tailwindcss-ruby", "~> 4.1"
 
 1. Clone the repository:
 ```bash
-git clone [https://github.com/ala-kad/pdf-report-gen.git](https://github.com/ala-kad/pdfrb.git)
+git clone https://github.com/ala-kad/pdfrb.git
 cd pdf-report-gen
 ```
 
