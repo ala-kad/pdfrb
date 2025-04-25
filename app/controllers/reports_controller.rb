@@ -254,9 +254,12 @@ class ReportsController < ApplicationController
         formats: [:html],
         template: 'reports/_show',
         dispotion: 'attachment',
-        page_size: 'A4'
+        page_size: 'A4',
+        layout: 'wicked_pdf'
       end
     end
   end
+
+
 
 end
