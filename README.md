@@ -13,7 +13,7 @@ This application allows you to:
 ## System Requirements
 
 - Ruby 3.4.3
-- Rails 7.x
+- Rails 8.x
 - WSL (Windows Subsystem for Linux)
 - Ubuntu 20.04.6 LTS
 - VS Code with WSL extension
@@ -33,7 +33,7 @@ gem "tailwindcss-ruby", "~> 4.1"
 1. Clone the repository:
 ```bash
 git clone https://github.com/ala-kad/pdfrb.git
-cd pdf-report-gen
+cd pdfrb
 ```
 
 2. Install dependencies:
