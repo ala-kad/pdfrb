@@ -1,12 +1,13 @@
 <!-- Main Container -->
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 min-h-screen">
-<!-- Logo Section -->
-<div class="mb-12">
-  <div class="w-40 h-40 mx-auto rounded-full overflow-hidden flex items-center justify-center shadow-lg ring">
-    <%= image_tag asset_path('1.png'), alt: "Company Logo" %>
+  <!-- Logo Section -->
+  <div class="mb-12">
+    <div class="w-40 h-40 mx-auto rounded-full overflow-hidden flex items-center justify-center shadow-lg ring">
+      <%= image_tag asset_path('1.png')%>
+    </div>
   </div>
-</div>
 
+  <div class="section-block">
   <!-- Title & Domain Section -->
   <div class="space-y-6 mb-12">
     <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-[#2a4798]">
@@ -17,7 +18,9 @@
       <strong><%= @report_data.dig(:executive_summary, :targets_scope) || "Unspecified Domain" %></strong>
     </p>
   </div>
+  </div>
 
+  <div class="section-block">
   <!-- Report Metadata -->
   <div class="rounded-lg shadow-md ring p-4 mb-8">
     <h3 class="text-xl font-bold text-[#2a4798] mb-6 text-center">Report Metadata</h3>
@@ -45,7 +48,9 @@
       </div>
     </div>
   </div>
+  </div>
 
+  <div class="section-block">
   <!-- Executive Summary -->
   <div class="rounded-lg shadow-md ring p-4 mb-8">
     <h3 class="text-xl font-bold text-[#2a4798] mb-6 text-center">
@@ -94,9 +99,10 @@
       <% end %>
     </div>
   </div>
+  </div>
 
   <!-- Methodology Section -->
-  <div class="print-break">
+  <div class="section-block">
     <% methodology = @report_data[:methodology] || [] %>
     <% task_categories = {
       "DNS Record Enumeration" => "Domain & DNS Intelligence",
@@ -148,10 +154,10 @@
         <% end %>
       </div>
     <% end %>
-  </div>
+  </div>   
 
   <!-- Findings Section -->
-  <div class="print-break">
+  <div class="section-block">
     <% dns_info = @report_data.dig(:findings, :domain_dns_intelligence) || {} %>
     <% dns_summary = dns_info[:dns_records_summary] || {} %>
     <% whois = dns_info[:whois_info_shown] || [] %>
@@ -168,7 +174,7 @@
         <!-- DNS Info -->
         <div class="mb-6">
           <h4 class="text-lg font-semibold text-[#4b566b] mb-3">DNS Records</h4>
-  
+
           <!-- NS Records -->
           <% if dns_summary[:ns_records_info].present? %>
             <h5 class="text-sm text-gray-500 mb-2">NS Records</h5>
@@ -192,7 +198,7 @@
               <p class="mt-2 text-xs text-gray-400"><%= dns_summary[:ns_note] %></p>
             <% end %>
           <% end %>
-  
+
           <!-- MX Records -->
           <% if dns_summary[:mx_records_info].present? %>
             <h5 class="text-sm text-gray-500 mt-6 mb-2">MX Records</h5>
@@ -254,7 +260,7 @@
   </div>
 
   <!-- Network Infrastructure Section -->
-  <div class="print-break">
+  <div class="section-block">
     <% network = @report_data.dig(:findings, :network_infrastructure) || {} %>
     <% shared_summary = network[:shared_hosting_summary] || {} %>
     <% shared_hosts = shared_summary[:hosts] || [] %>
@@ -306,9 +312,9 @@
       </div>
     <% end %>
   </div>
-        
+
   <!-- HTTPS Section -->
-  <div class="print-break">
+  <div class="section-block">
     <% subdomains = @report_data.dig(:findings, :subdomain_enumeration) || {} %>
     <% shown = subdomains[:shown] || [] %>
     <% if subdomains[:total_found].to_i > 0 %>
@@ -366,7 +372,7 @@
   </div>
 
   <!-- Certificate Enumeration Section -->
-  <div class="print-break">
+  <div class="section-block">            
     <% certs = @report_data.dig(:findings, :certificate_https, :certificates) || [] %>
     <% if certs.any? %>
       <% now = Time.now.utc %>
@@ -410,7 +416,7 @@
   </div>
 
   <!-- Exposed Assets Section -->
-  <div class="print-break">
+  <div class="section-block">
     <% assets = @report_data.dig(:findings, :exposed_assets, :shown) || [] %>
     <% if assets.any? %>
       <div class="my-10 rounded-lg shadow-md ring p-4 mb-8">
@@ -526,7 +532,7 @@
   </div>
 
   <!-- Data Leaks & Credential Exposure Section -->
-  <div class="print-break">
+  <div class="section-block">
     <% leaks = @report_data.dig(:findings, :data_leaks_and_breaches) || {} %>
     <% if leaks[:logstealer_leaks][:total].to_i > 0 || leaks[:public_leaks][:total].to_i > 0 || leaks[:combo_leaks][:total].to_i > 0 %>
       <div class="my-10 rounded-lg shadow-md ring p-4 mb-8">
@@ -633,169 +639,169 @@
         </div>
       </div>
     <% end %>
+  </div>
 
-    <!-- Employee Enumeration Section  -->
-    <div class="print-break">
-      <% employees = @report_data.dig(:findings, :employee_information) || {} %>
-      <% shown = employees[:shown] || [] %>
-      <% if employees[:total_found].to_i > 0 %>
-        <div class="my-10 p-4 ring rounded-lg shadow-md">
-          <h3 class="text-xl font-bold text-[#2a4798] mb-4 text-center">Employee Enumeration</h3>
+  <!-- Employee Enumeration Section  -->
+  <div class="section-block">                  
+    <% employees = @report_data.dig(:findings, :employee_information) || {} %>
+    <% shown = employees[:shown] || [] %>
+    <% if employees[:total_found].to_i > 0 %>
+      <div class="my-10 p-4 ring rounded-lg shadow-md">
+        <h3 class="text-xl font-bold text-[#2a4798] mb-4 text-center">Employee Enumeration</h3>
 
-          <p class="text-sm text-[#4b566b] mb-3 leading-relaxed">
-            This section lists publicly accessible employees discovered during reconnaissance. Full role breakdowns and exposure context are available in the Oktoboot dashboard.
-          </p>
+        <p class="text-sm text-[#4b566b] mb-3 leading-relaxed">
+          This section lists publicly accessible employees discovered during reconnaissance. Full role breakdowns and exposure context are available in the Oktoboot dashboard.
+        </p>
 
-          <p class="text-sm text-[#4b566b] mb-5">
-            <strong>Total Identified:</strong> <%= employees[:total_found] %>
-          </p>
+        <p class="text-sm text-[#4b566b] mb-5">
+          <strong>Total Identified:</strong> <%= employees[:total_found] %>
+        </p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <% shown.each do |emp| %>
-              <div class="bg-[#1a273b] p-3 rounded-lg">
-                <p class="text-sm font-semibold text-white mb-1"><%= emp[:fullname] %></p>
-                <p class="text-xs text-gray-300"><%= emp[:poste].presence || "N/A" %></p>
-              </div>
-            <% end %>
-          </div>
-
-          <% if employees[:note].present? %>
-            <p class="mt-5 text-xs text-gray-400 italic">
-              <%= employees[:note] %>
-            </p>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  
-    <!-- Metadata & Public Files Section -->
-    <div class="print-break">
-      <% meta = @report_data.dig(:findings, :metadata_public_files) || {} %>
-      <% files = meta[:files] || [] %>
-      <% sensitive = meta[:sensitive_data] || [] %>
-
-      <% if files.any? || sensitive.any? %>
-        <div class="my-10 p-4 ring rounded-lg shadow-md">
-          <h3 class="text-xl font-bold text-[#2a4798] mb-4 text-center">Metadata & Public Files</h3>
-
-          <p class="text-sm text-[#4b566b] mb-6 leading-relaxed">
-            This section lists publicly accessible files and detected metadata exposures. View complete data in your Oktoboot dashboard.
-          </p>
-
-          <% if files.any? %>
-            <h4 class="text-lg font-semibold text-[#4b566b] mb-4">Discovered Files</h4>
-            <div class="overflow-x-auto">
-             <table class="min-w-full divide-y divide-gray-200 text-center table-auto">
-                <thead class="bg-[#2a4798]">
-                  <tr>
-                    <th class="px-6 py-3 text-xs font-medium text-white capitalizetracking-wider">File Name</th>
-                    <th class="px-6 py-3 text-xs font-medium text-white capitalizetracking-wider">URL</th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-2 text-sm text-[#4b566b]">
-                      report.pdf
-                    </td>
-                    <td class="px-6 py-4">
-                      <a href="http://example.com/report.pdf" target="_blank" class="text-[#4fb7ff] text-sm hover:underline">
-                        http://example.com/report.pdf
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <% shown.each do |emp| %>
+            <div class="bg-[#1a273b] p-3 rounded-lg">
+              <p class="text-sm font-semibold text-white mb-1"><%= emp[:fullname] %></p>
+              <p class="text-xs text-gray-300"><%= emp[:poste].presence || "N/A" %></p>
             </div>
           <% end %>
         </div>
-      <% end %>
-    </div>
 
-    <!-- Risk Assessment Section -->
-    <div class="print-break">
-      <% risks = @report_data[:risk_assessment] || {} %>
-      <% high_risks = risks[:high_risks] || [] %>
-      <% medium_risks = risks[:medium_risks] || [] %>
-      <% info_risks = risks[:info_risks] || [] %>
-
-      <% if high_risks.any? || medium_risks.any? || info_risks.any? %>
-        <div class="my-10 p-4 ring rounded-lg shadow-md">
-          <h3 class="text-xl font-bold text-[#2a4798] mb-4 text-center">Risk Assessment</h3>
-
-          <p class="text-sm text-[#4b566b] mb-5 leading-relaxed">
-            The following risks were identified during the reconnaissance phase. They are categorized by severity and may require immediate remediation or strategic consideration.
+        <% if employees[:note].present? %>
+          <p class="mt-5 text-xs text-gray-400 italic">
+            <%= employees[:note] %>
           </p>
-
-          <% if high_risks.any? %>
-            <h4 class="text-lg font-semibold text-[#ff6b6b] mt-5 mb-3">High Risks</h4>
-            <% high_risks.each do |risk| %>
-              <div class="pl-3 mt-1.5 text-[#5c7598]">
-                <span class="font-medium mr-2">‣</span><%= risk %>
-              </div>
-            <% end %>
-          <% end %>
-
-          <% if medium_risks.any? %>
-            <h4 class="text-lg font-semibold text-[#f7c948] mt-8 mb-3">Medium Risks</h4>
-            <% medium_risks.each do |risk| %>
-              <div class="pl-3 mt-1.5 text-[#5c7598]">
-                <span class="font-medium mr-2">‣</span><%= risk %>
-              </div>
-            <% end %>
-          <% end %>
-
-          <% if info_risks.any? %>
-            <h4 class="text-lg font-semibold text-[#9ecfff] mt-8 mb-3">Informational</h4>
-            <% info_risks.each do |risk| %>
-              <div class="pl-3 mt-1.5 text-[#5c7598]">
-                <span class="font-medium mr-2">‣</span><%= risk %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-
-    <!-- Recommendations Section -->
-    <div class="print-break">
-      <% recommendations = @report_data[:recommendations] || {} %>
-      <% if recommendations.values.flatten.any? %>
-        <div class="my-10 p-4 ring rounded-lg shadow-md">
-          <h3 class="text-xl font-bold text-[#2a4798] mb-5 text-center">
-            Recommendations
-          </h3>
-
-          <p class="text-sm text-[#4b566b] mb-4 leading-relaxed">
-            Prioritized guidance based on reconnaissance findings. Grouped by severity for operational clarity.
-          </p>
-
-          <% {
-            "Critical" => [recommendations[:critical], "#ff4c4c"],
-            "Important" => [recommendations[:important], "#f7c948"],
-            "Best Practice" => [recommendations[:best_practice], "#4fb7ff"]
-          }.each do |severity, (items, color)| %>
-            <% if items.any? %>
-              <h4 class="text-lg font-semibold mt-8 mb-4" style="color: <%= color %>">
-                <%= severity %> Recommendations
-              </h4>
-
-              <div class="space-y-4">
-                <% items.each do |rec| %>
-                  <div class="p-4 rounded-lg border-l-4" style="border-color: <%= color %>; background-color: <%= color %>0a">
-                    <p class="text-sm font-medium mb-2" style="color: <%= color %>">
-                      <strong>Area:</strong> <%= rec[:area] %>
-                    </p>
-                    <p class="text-sm text-[#5c7598] leading-relaxed">
-                      <%= rec[:recommendation] %>
-                    </p>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+
+  <!-- Metadata & Public Files Section -->
+  <div class="section-block">
+    <% meta = @report_data.dig(:findings, :metadata_public_files) || {} %>
+    <% files = meta[:files] || [] %>
+    <% sensitive = meta[:sensitive_data] || [] %>
+
+    <% if files.any? || sensitive.any? %>
+      <div class="my-10 p-4 ring rounded-lg shadow-md">
+        <h3 class="text-xl font-bold text-[#2a4798] mb-4 text-center">Metadata & Public Files</h3>
+
+        <p class="text-sm text-[#4b566b] mb-6 leading-relaxed">
+          This section lists publicly accessible files and detected metadata exposures. View complete data in your Oktoboot dashboard.
+        </p>
+
+        <% if files.any? %>
+          <h4 class="text-lg font-semibold text-[#4b566b] mb-4">Discovered Files</h4>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 text-center table-auto">
+              <thead class="bg-[#2a4798]">
+                <tr>
+                  <th class="px-6 py-3 text-xs font-medium text-white capitalizetracking-wider">File Name</th>
+                  <th class="px-6 py-3 text-xs font-medium text-white capitalizetracking-wider">URL</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr class="hover:bg-gray-50">
+                  <td class="px-6 py-2 text-sm text-[#4b566b]">
+                    report.pdf
+                  </td>
+                  <td class="px-6 py-4">
+                    <a href="http://example.com/report.pdf" target="_blank" class="text-[#4fb7ff] text-sm hover:underline">
+                      http://example.com/report.pdf
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+
+  <!-- Risk Assessment Section -->
+  <div class="section-block" >
+    <% risks = @report_data[:risk_assessment] || {} %>
+    <% high_risks = risks[:high_risks] || [] %>
+    <% medium_risks = risks[:medium_risks] || [] %>
+    <% info_risks = risks[:info_risks] || [] %>
+
+    <% if high_risks.any? || medium_risks.any? || info_risks.any? %>
+      <div class="my-10 p-4 ring rounded-lg shadow-md">
+        <h3 class="text-xl font-bold text-[#2a4798] mb-4 text-center">Risk Assessment</h3>
+
+        <p class="text-sm text-[#4b566b] mb-5 leading-relaxed">
+          The following risks were identified during the reconnaissance phase. They are categorized by severity and may require immediate remediation or strategic consideration.
+        </p>
+
+        <% if high_risks.any? %>
+          <h4 class="text-lg font-semibold text-[#ff6b6b] mt-5 mb-3">High Risks</h4>
+          <% high_risks.each do |risk| %>
+            <div class="pl-3 mt-1.5 text-[#5c7598]">
+              <span class="font-medium mr-2">‣</span><%= risk %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% if medium_risks.any? %>
+          <h4 class="text-lg font-semibold text-[#f7c948] mt-8 mb-3">Medium Risks</h4>
+          <% medium_risks.each do |risk| %>
+            <div class="pl-3 mt-1.5 text-[#5c7598]">
+              <span class="font-medium mr-2">‣</span><%= risk %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% if info_risks.any? %>
+          <h4 class="text-lg font-semibold text-[#9ecfff] mt-8 mb-3">Informational</h4>
+          <% info_risks.each do |risk| %>
+            <div class="pl-3 mt-1.5 text-[#5c7598]">
+              <span class="font-medium mr-2">‣</span><%= risk %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Recommendations Section -->
+  <div class="section-block">
+    <% recommendations = @report_data[:recommendations] || {} %>
+    <% if recommendations.values.flatten.any? %>
+      <div class="my-10 p-4 ring rounded-lg shadow-md">
+        <h3 class="text-xl font-bold text-[#2a4798] mb-5 text-center">
+          Recommendations
+        </h3>
+
+        <p class="text-sm text-[#4b566b] mb-4 leading-relaxed">
+          Prioritized guidance based on reconnaissance findings. Grouped by severity for operational clarity.
+        </p>
+
+        <% {
+          "Critical" => [recommendations[:critical], "#ff4c4c"],
+          "Important" => [recommendations[:important], "#f7c948"],
+          "Best Practice" => [recommendations[:best_practice], "#4fb7ff"]
+        }.each do |severity, (items, color)| %>
+          <% if items.any? %>
+            <h4 class="text-lg font-semibold mt-8 mb-4" style="color: <%= color %>">
+              <%= severity %> Recommendations
+            </h4>
+
+            <div class="space-y-4">
+              <% items.each do |rec| %>
+                <div class="p-4 rounded-lg border-l-4" style="border-color: <%= color %>; background-color: <%= color %>0a">
+                  <p class="text-sm font-medium mb-2" style="color: <%= color %>">
+                    <strong>Area:</strong> <%= rec[:area] %>
+                  </p>
+                  <p class="text-sm text-[#5c7598] leading-relaxed">
+                    <%= rec[:recommendation] %>
+                  </p>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
